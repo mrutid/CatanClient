@@ -10,7 +10,6 @@ recursos.forEach(function (material) {
   pool[material] = redis.createClient();
   pool[material].on('error', console.log);
 });
-exports.pool = pool;
 
 exports.add = function (resource, cb) {
   "use strict";
