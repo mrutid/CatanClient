@@ -6,15 +6,21 @@ var specialistFactory = require('./specialist'),
   houseUrl = config.houseUrl,
   login = config.login;
 
-function createSpecialist(desingList) {
+function createSpecialist(designList) {
   "use strict";
-  return desingList.map(function (elem) {
+  return designList.map(function (elem) {
     return specialistFactory.create(elem);
   });
 }
 
-function buildHouse(reqOpt, cb) {
+function buildHouse(house, cb) {
   "use strict";
+  var reqOpt = {
+    method: 'POST',
+    url: houseUrl,
+    body: house,
+    json: true
+  };
   request(reqOpt, function (error, houseData) {
     if (error) {
       console.log(error);
@@ -36,21 +42,12 @@ function buildDesigns(err, designs) {
             cb(err);
           } else {
             //build a house with these resources
-            var resources = material.map(function (e) {
-                return e[1]; //extract the resource [name, res]
-              }),
-              house = {
-                "resources": resources,
+            var house = {
+                "resources": material.map(function (e) {return e[1]; }),
                 "designId": specialist.id,
                 "login": login
-              },
-              reqOpt = {
-                method: 'POST',
-                url: houseUrl,
-                body: house,
-                json: true
               };
-            buildHouse(reqOpt, function (error, houseData) {
+            buildHouse(house, function (error, houseData) {
               if (!error) {
                 console.log("HOUSE built: " + specialist.type +
                   "  value= " + specialist.value);
