@@ -9,7 +9,7 @@ exports.steeler = { ratio: 2000,
   urlCasa: 'http://localhost:3005/casa',
   socketHost: 'localhost',
   socketPort: '3004'
-};
+  };
 
 exports.chopperConfig = {
   ratio: 2000,

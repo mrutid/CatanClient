@@ -2,7 +2,7 @@
 
 var warehouse = require('./warehouse.js'),
   config = require('./config'),
-  workerList = steelerConfig.workerList;
+  workerList = config.workerList;
 
 var gotMaterial = function (error, material) {
   "use strict";

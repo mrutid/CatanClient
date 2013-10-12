@@ -2,9 +2,9 @@ var specialistFactory = require('./specialist'),
   async = require('async'),
   request = require('request'),
   config = require('./config'),
-  designUrl = steelerConfig.designUrl,
-  houseUrl = steelerConfig.houseUrl,
-  login = steelerConfig.login;
+  designUrl = config.designUrl,
+  houseUrl = config.houseUrl,
+  login = config.login;
 
 function createSpecialist(desingList) {
   "use strict";
