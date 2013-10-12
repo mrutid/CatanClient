@@ -1,4 +1,4 @@
-var wharehouseCustomerLine = require('./wharehouse'),
+var wharehouseCustomerLine = require('./warehouse'),
   async = require('async');
 
 exports.create = function createBuilder(design) {

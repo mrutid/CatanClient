@@ -1,15 +1,14 @@
 //make workers produce and stores en wharehouse
 
-var wharehouse = require('./wharehouse.js'),
-  workerList = ['./chopper', './steeler'],
-  workerPool;
+var warehouse = require('./warehouse.js'),
+  workerList = ['./chopper', './steeler'];
 
 var gotMaterial = function (error, material) {
   "use strict";
   if (!error && material.id) {
-    wharehouse.add(material, function (err) {
+    warehouse.add(material, function (err) {
       if (!err) {
-        console.log('Material ' + material.name + ' kept into wharehouse');
+        console.log('Material ' + material.name + ' kept into warehouse');
       } else {
         console.log('error Keeping' + material.name);
       }
@@ -19,13 +18,8 @@ var gotMaterial = function (error, material) {
   }
 };
 
-//create workers
-workerPool = workerList.map(function (worker) {
+//create workers & make them work
+workerList.forEach(function (worker) {
   'use strict';
-  return require(worker);
-});
-//make them work
-workerPool.forEach(function (worker) {
-  'use strict';
-  worker.produce(gotMaterial);
+  require(worker).produce(gotMaterial);
 });
