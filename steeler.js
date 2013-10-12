@@ -23,7 +23,6 @@ exports.produce = function produce(cb) {
       port: config.socketPort
     });
     sock.emit("¡Hola Don Jose!");
-
   });
 
   sock.on('¿Paso usted por mi casa?', function (data) {
@@ -52,15 +51,14 @@ exports.produce = function produce(cb) {
 
   sock.on('¡Adios Don Pepito!', function (data) {
     sock.emit('¡Adios Don Jose!');
-    cb(null, {id: data.resource, name: data.resourceType});
     setTimeout(sock.emit.bind(this, "¡Hola Don Jose!"), config.ratio);
+    cb(null, {id: data.resource, name: data.resourceType});
   });
 
   sock.on('¡Hola Don Pepito!', function () {
     sock.emit("¡Hola Don Jose!");
   });
 };
-
 
 
 
