@@ -1,7 +1,8 @@
 var redis = require('redis'),
   con = redis.createClient(),
+  config = require('./config'),
   pool = {},
-  recursos = ['Madera', 'Piedra', 'Metal', 'Cemento'];
+  recursos = config.resources;
 
 con.on('error', console.log);
 

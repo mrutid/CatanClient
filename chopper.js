@@ -1,15 +1,12 @@
-var request = require("request");
-//IT will chop when "produce" es called
-var config = {
-  ratio: 2000,
-  url: "http://localhost:3003/chop"
-};
+var request = require("request"),
+  config = require('./config'),
+  chopperConfig = config.chopperConfig;
 
 var chop = function (cb) {
   "use strict";
 
   var options = {
-    url: config.url,
+    url: chopperConfig.url,
     json: true
   };
 
@@ -28,5 +25,5 @@ var chop = function (cb) {
 
 exports.produce = function (cb) {
   "use strict";
-  setInterval(chop.bind(this, cb), config.ratio);
+  setInterval(chop.bind(this, cb), chopperConfig.ratio);
 };

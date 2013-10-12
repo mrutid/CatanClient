@@ -1,32 +1,26 @@
-var sio = require('socket.io-client');
-var request = require('request');
-var async = require('async');
-
-var config = { ratio: 2000,
-  urlAbuela: 'http://localhost:3005/abuela',
-  urlCasa: 'http://localhost:3005/casa',
-  socketHost: 'localhost',
-  socketPort: '3004'
-  };
+var sio = require('socket.io-client'),
+  request = require('request'),
+  config = require('./config'),
+  steelerConfig = config.steeler;
 
 exports.produce = function produce(cb) {
   "use strict";
-  var sock = sio.connect(config.socketHost, {
-    port: config.socketPort
+  var sock = sio.connect(steelerConfig.socketHost, {
+    port: steelerConfig.socketPort
   });
 
   sock.on('error', function (err) {
     console.log('SOCKETIO-ERROR:' + err);
     cb(err, null);
     sock.disconnect();
-    sock = sio.connect(config.socketHost, {
-      port: config.socketPort
+    sock = sio.connect(steelerConfig.socketHost, {
+      port: steelerConfig.socketPort
     });
     sock.emit("¡Hola Don Jose!");
   });
 
   sock.on('¿Paso usted por mi casa?', function (data) {
-    var reqOpt = {method: 'POST', url: config.urlCasa, body: data, json: true};
+    var reqOpt = {method: 'POST', url: steelerConfig.urlCasa, body: data, json: true};
     request(reqOpt, function (err, d) {
       if (err) {
         console.log(err);
@@ -38,7 +32,7 @@ exports.produce = function produce(cb) {
   });
 
   sock.on('¿Vio usted a mi abuela?', function (data) {
-    var reqOpt = {method: 'POST', url: config.urlAbuela, body: data, json: true};
+    var reqOpt = {method: 'POST', url: steelerConfig.urlAbuela, body: data, json: true};
     request(reqOpt, function (err, d) {
       if (err) {
         console.log(err);
@@ -51,7 +45,7 @@ exports.produce = function produce(cb) {
 
   sock.on('¡Adios Don Pepito!', function (data) {
     sock.emit('¡Adios Don Jose!');
-    setTimeout(sock.emit.bind(this, "¡Hola Don Jose!"), config.ratio);
+    setTimeout(sock.emit.bind(this, "¡Hola Don Jose!"), steelerConfig.ratio);
     cb(null, {id: data.resource, name: data.resourceType});
   });
 

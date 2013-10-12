@@ -1,7 +1,8 @@
 //make workers produce and stores en wharehouse
 
 var warehouse = require('./warehouse.js'),
-  workerList = ['./chopper', './steeler'];
+  config = require('./config'),
+  workerList = steelerConfig.workerList;
 
 var gotMaterial = function (error, material) {
   "use strict";

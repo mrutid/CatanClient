@@ -1,8 +1,10 @@
 var specialistFactory = require('./specialist'),
   async = require('async'),
   request = require('request'),
-  designUrl = 'http://localhost:3001/design',
-  houseUrl = 'http://localhost:3001/house';
+  config = require('./config'),
+  designUrl = steelerConfig.designUrl,
+  houseUrl = steelerConfig.houseUrl,
+  login = steelerConfig.login;
 
 function createSpecialist(desingList) {
   "use strict";
@@ -40,7 +42,7 @@ function buildDesigns(err, designs) {
               house = {
                 "resources": resources,
                 "designId": specialist.id,
-                "login": "mru"
+                "login": login
               },
               reqOpt = {
                 method: 'POST',
