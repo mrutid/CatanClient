@@ -1,4 +1,8 @@
-var specialistFactory = require('./specialist'), async = require('async'), request = require('request'), designUrl = 'http://localhost:3001/design', houseUrl = 'http://localhost:3001/house';
+var specialistFactory = require('./specialist'),
+  async = require('async'),
+  request = require('request'),
+  designUrl = 'http://localhost:3001/design',
+  houseUrl = 'http://localhost:3001/house';
 
 function createSpecialist(desingList) {
   "use strict";
