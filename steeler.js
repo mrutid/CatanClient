@@ -46,14 +46,14 @@ exports.produce = function produce(cb) {
   sock.on('¡Adios Don Pepito!', function (data) {
     sock.emit('¡Adios Don Jose!');
     setTimeout(sock.emit.bind(this, "¡Hola Don Jose!"), steelerConfig.ratio);
-    cb(null, {id: data.resource, name: data.resourceType});
+    if (data && data.resource) {
+      cb(null, {id: data.resource, name: data.resourceType});
+    } else {
+      cb(data, null);
+    }
   });
 
   sock.on('¡Hola Don Pepito!', function () {
     sock.emit("¡Hola Don Jose!");
   });
 };
-
-
-
-
