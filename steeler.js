@@ -9,7 +9,7 @@ exports.produce = function produce(cb) {
     port: steelerConfig.socketPort
   });
 
-  sock.on('error', function (err) {
+  sock.on('Error', function (err) {
     console.log('SOCKETIO-ERROR:' + err);
     cb(err, null);
     sock.disconnect();
